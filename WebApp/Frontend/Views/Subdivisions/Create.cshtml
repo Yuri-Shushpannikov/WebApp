@@ -1,0 +1,56 @@
+﻿@model Subdivision
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Создать новое подразделение</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Fullname" class="control-label"></label>
+                <input asp-for="Fullname" class="form-control" />
+                <span asp-validation-for="Fullname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Shortname" class="control-label"></label>
+                <input asp-for="Shortname" class="form-control" />
+                <span asp-validation-for="Shortname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StartDate" class="control-label"></label>
+                <input asp-for="StartDate" class="form-control" type="date" id="hireDate" />
+                <span asp-validation-for="StartDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
+<!--Проверка заполнения-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- Заполнение выбора даты создания датой нажатия на кнопку-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var hireDateInput = document.getElementById("hireDate");
+            if (!hireDateInput.value) {
+                var today = new Date();
+                var day = ('0' + today.getDate()).slice(-2);
+                var month = ('0' + (today.getMonth() + 1)).slice(-2);
+                var date = today.getFullYear() + '-' + month + '-' + day;
+                hireDateInput.value = date;
+            }
+        });
+    </script>
+}

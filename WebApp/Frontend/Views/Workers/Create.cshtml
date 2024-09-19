@@ -1,0 +1,89 @@
+﻿@model Worker
+
+@{
+    ViewData["Title"] = "Принятие";
+}
+
+<h1>Работники:</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Workername" class="control-label"></label>
+                <input asp-for="Workername" class="form-control" />
+                <span asp-validation-for="Workername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex"></label>
+                <select asp-for="Sex" class="form-control">
+                    <option value="true">мужской</option>
+                    <option value="false">женский</option>
+                </select>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HireDate" class="control-label"></label>
+                <input asp-for="HireDate" class="form-control" type="date" id="hireDate" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubdivisionId" class="control-label"></label>
+                <select asp-for="SubdivisionId" class="form-control" asp-items="ViewBag.SubdivisionId"><option value=""></option></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" />
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Выберите изображение</label>
+                <input asp-for="PicturePath" type="file" name="picture" class="form-control" />
+                <span asp-validation-for="PicturePath" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="IsFired" value="false" />
+            <div class="form-group">
+                <input type="submit" value="Принять" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
+<!--Проверка заполнения-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <!-- Автоматическое заполнение выбора даты создания датой нажатия на кнопку-->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var hireDateInput = document.getElementById("hireDate");
+            if (!hireDateInput.value) {
+                var today = new Date();
+                var day = ('0' + today.getDate()).slice(-2);
+                var month = ('0' + (today.getMonth() + 1)).slice(-2);
+                var date = today.getFullYear() + '-' + month + '-' + day;
+                hireDateInput.value = date;
+            }
+        });
+    </script>
+}

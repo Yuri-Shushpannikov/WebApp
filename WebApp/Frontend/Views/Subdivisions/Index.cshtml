@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Subdivision>
+@{
+    ViewData["Title"] = "Предприятия";
+    bool showLiquidated = ViewData["ShowLiquidated"] as bool? ?? false;
+}
+
+<h1>Предприятия</h1>
+
+<p>
+    <a asp-action="Create">Создать</a>
+</p>
+
+<form method="get" asp-action="Index">
+    <style>
+        .hidden-checkbox {
+            display: none;
+        }
+
+        .btn-primary {
+            cursor: pointer;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            text-align: center;
+        }
+    </style>
+    <input type="checkbox" id="showLiquidatedCheckbox" name="showLiquidated" value="true" class="hidden-checkbox" @(showLiquidated ? "checked" : "") />
+    <button type="submit" class="btn-primary" onclick="document.getElementById('showLiquidatedCheckbox').checked = !document.getElementById('showLiquidatedCheckbox').checked;">
+        Отображение ликвидированных предприятий
+    </button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Code)</th>
+            <th>@Html.DisplayNameFor(model => model.Fullname)</th>
+            <th>@Html.DisplayNameFor(model => model.Shortname)</th>
+            <th>@Html.DisplayNameFor(model => model.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EndDate)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                <td>@Html.DisplayFor(modelItem => item.Fullname)</td>
+                <td>@Html.DisplayFor(modelItem => item.Shortname)</td>
+                <td>@Html.DisplayFor(modelItem => item.StartDate)</td>
+                <td>@Html.DisplayFor(modelItem => item.EndDate)</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редактировать</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Информация</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Ликвидировать</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

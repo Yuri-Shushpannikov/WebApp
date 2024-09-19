@@ -1,0 +1,102 @@
+﻿@model Worker
+
+@{
+    ViewData["Title"] = "Редактирование";
+}
+
+<h1>Редактирование</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Code" class="control-label"></label>
+                <input asp-for="Code" class="form-control" />
+                <span asp-validation-for="Code" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Workername" class="control-label"></label>
+                <input asp-for="Workername" class="form-control" />
+                <span asp-validation-for="Workername" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sex"></label>
+                <select asp-for="Sex" class="form-control">
+                    <option value="true">мужской</option>
+                    <option value="false">женский</option>
+                </select>
+                <span asp-validation-for="Sex" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HireDate" class="control-label"></label>
+                <input asp-for="HireDate" class="form-control" />
+                <span asp-validation-for="HireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FireDate" class="control-label"></label>
+                <input asp-for="FireDate" class="form-control" />
+                <span asp-validation-for="FireDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MoveDate" class="control-label"></label>
+                <input asp-for="MoveDate" class="form-control" />
+                <span asp-validation-for="MoveDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SubdivisionId" class="control-label"></label>
+                <select asp-for="SubdivisionId" class="form-control" asp-items="ViewBag.SubdivisionId"></select>
+                <span asp-validation-for="SubdivisionId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Role" class="control-label"></label>
+                <input asp-for="Role" class="form-control" />
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label"></label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PicturePath" class="control-label">Заменить изображение</label>
+                <input asp-for="PicturePath" type="file" name="picture" class="form-control" />
+                <span asp-validation-for="PicturePath" class="text-danger"></span>
+                <!--Возможность удаления изображения сотрудника-->
+                @if (!string.IsNullOrEmpty(Model.PicturePath))
+                {
+                    <div>
+                        <label>
+                            <input type="checkbox" name="removePicture" value="true" /> Удалить изображение профиля
+                        </label>
+                    </div>
+                }
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.Id">Вернуться</a>
+</div>
+<!--Проверка заполнения-->
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<Worker>
+
+@{
+    ViewData["Title"] = "Отчёт по сотрудникам";
+}
+
+<style>
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: inline-block;
+        width: 50px;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    input[type="date"] {
+        padding: 5px
+    }
+
+    button {
+        margin-top: 10px;
+    }
+</style>
+
+<h1>Отчёт по работникам:</h1>
+
+<form method="get" asp-action="Report">
+    <div>
+        <label>С:</label>
+        <input type="date" name="startDate" />
+    </div>
+
+    <div>
+        <label>По:</label>
+        <input type="date" name="endDate" />
+    </div>
+    <button type="submit" class="btn-primary">Сформировать отчёт</button>
+</form>
+
+@if (ViewBag.IsSubmitted)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Code)</th>
+                <th>@Html.DisplayNameFor(model => model.Workername)</th>
+                <th>@Html.DisplayNameFor(model => model.HireDate)</th>
+                <th>@Html.DisplayNameFor(model => model.MoveDate)</th>
+                <th>@Html.DisplayNameFor(model => model.FireDate)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Workername)</td>
+                    <td>@Html.DisplayFor(modelItem => item.HireDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.MoveDate)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FireDate)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div>
+        <h4>Выберите даты и нажмите "Сформировать отчёт" для отображения результата.</h4>
+    </div>
+}

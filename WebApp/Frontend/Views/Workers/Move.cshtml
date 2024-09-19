@@ -1,0 +1,38 @@
+﻿@model Worker
+
+@{
+    ViewData["Title"] = "Перевод";
+}
+
+<h1>Перевести сотрудника:</h1>
+<hr />
+<div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center;">
+    <h4>@Html.DisplayFor(model => model.Workername)</h4>
+    <dl class="row">
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Code)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Code)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.SubdivisionId)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Subdivision.Fullname)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Role)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Role)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.PhoneNumber)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.PhoneNumber)</dd>
+        <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Email)</dt>
+        <dd class="col-sm-10">@Html.DisplayFor(model => model.Email)</dd>
+    </dl>
+</div>
+
+<h1>Выберите новое подразделение:</h1>
+<form asp-action="Move" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="SubdivisionId" class="control-label"></label>
+        <select asp-for="SubdivisionId" class="form-control" asp-items="ViewBag.SubdivisionId"></select>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Перевести" class="btn btn-primary" />
+    </div>
+</form>
+<div>
+    <a asp-action="Index">Вернуться к списку</a>
+</div>
